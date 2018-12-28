@@ -1,4 +1,6 @@
 import React from 'react'
+
+import '../styles/style.scss'
 // import { bindActionCreators } from 'redux'
 // import { startClock, addCount, serverRenderClock } from '../store'
 // import { connect } from 'react-redux'
