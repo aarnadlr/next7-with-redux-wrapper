@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-// import { startClock, addCount, serverRenderClock } from '../redux/store'
-import { addCount, changeName } from '../redux/actions';
+import { addCount } from '../redux/actions';
 
 class Counter extends Component {
 
@@ -20,8 +19,25 @@ static getInitialProps (props) {
       <div>
         FROM COUNTER
 
-        <h3>The count is : {this.props.count} </h3>
+        <h3 className='hello'>The count is : {this.props.count} </h3>
         <button onClick={this.props.addCount}>INCREMENT</button>
+
+
+    <style jsx>{`
+      $color1: red;
+      $color2: blue;
+      $color3: white;
+      $color4: cyan;
+      .hello {
+        color: $color3;
+        background: $color2;
+        &:hover {
+          color: $color1;
+          background: $color4;
+        }
+
+      }
+    `}</style>
       </div>
     )
   }
