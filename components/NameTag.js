@@ -2,16 +2,20 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 // import { startClock, changeName, addCount, serverRenderClock } from '../redux/store'
-import { addCount, changeName } from '../redux/actions';
+import { changeName } from '../redux/actions';
 
-const NameTag = (props) => {
-  return (
-    <div>
-       FROM NAMETAG
-       <h3>Name is: {props.name}</h3>
-       <button onClick={props.changeName}>CHange the name</button>
-    </div>
-  )
+class NameTag extends React.Component {
+
+  render(){
+
+    return (
+      <div>
+        FROM NAMETAG
+        <h3>Name is: {this.props.name}</h3>
+        <button onClick={this.props.changeName}>CHange the name</button>
+      </div>
+    )
+  }
 }
 
 

@@ -5,11 +5,7 @@ import { addCount } from '../redux/actions';
 
 class Counter extends Component {
 
-static getInitialProps (props) {
-  // store.dispatch(serverRenderClock(isServer))
-  store.dispatch(addCount())
-  return { isServer }
-}
+
   componentDidMount(){
     console.log('From Counter CompDidMT!')
   }

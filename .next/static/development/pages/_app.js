@@ -11751,26 +11751,31 @@ function (_App) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_app__WEBPACK_IMPORTED_MODULE_3__["Container"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 21
+          lineNumber: 30
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__["Provider"], {
         store: store,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 22
+          lineNumber: 31
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Component, _extends({}, pageProps, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 23
+          lineNumber: 32
         },
         __self: this
       }))));
     }
   }], [{
     key: "getInitialProps",
+    // getInitialProps is only called ONCE, here at _app.js.
+    // So DO NOT BOTHER trying to use it inside individual page modules!
+    // It won't be called in the other pages!
+    // IF you NEED to call different getInitialProps data fetching requests
+    // from inside different pages, then REMOVE it from here at _APP.JS!!
     value: function () {
       var _getInitialProps = _asyncToGenerator(
       /*#__PURE__*/

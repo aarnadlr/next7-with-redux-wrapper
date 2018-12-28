@@ -161,14 +161,14 @@ function (_Component) {
         className: "jsx-2220005710",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 19
+          lineNumber: 15
         },
         __self: this
       }, "FROM COUNTER", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
         className: "jsx-2220005710" + " " + 'hello',
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 22
+          lineNumber: 18
         },
         __self: this
       }, "The count is : ", this.props.count, " "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
@@ -176,23 +176,14 @@ function (_Component) {
         className: "jsx-2220005710",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 23
+          lineNumber: 19
         },
         __self: this
       }, "INCREMENT"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
         styleId: "2220005710",
-        css: ".hello.jsx-2220005710{color:white;background:blue;}.hello.jsx-2220005710:hover{color:red;background:cyan;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hYXJvbmFkbGVyL0Rlc2t0b3AvbmV4dDctd2l0aC1yZWR1eC13cmFwcGVyL2NvbXBvbmVudHMvQ291bnRlci5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUF5QmdCLEFBRWUsQUFHQSxVQUNNLEVBSEYsY0FHRyxFQUhGIiwiZmlsZSI6Ii9Vc2Vycy9hYXJvbmFkbGVyL0Rlc2t0b3AvbmV4dDctd2l0aC1yZWR1eC13cmFwcGVyL2NvbXBvbmVudHMvQ291bnRlci5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyBDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCB7IGJpbmRBY3Rpb25DcmVhdG9ycyB9IGZyb20gJ3JlZHV4J1xuaW1wb3J0IHsgY29ubmVjdCB9IGZyb20gJ3JlYWN0LXJlZHV4J1xuaW1wb3J0IHsgYWRkQ291bnQgfSBmcm9tICcuLi9yZWR1eC9hY3Rpb25zJztcblxuY2xhc3MgQ291bnRlciBleHRlbmRzIENvbXBvbmVudCB7XG5cbnN0YXRpYyBnZXRJbml0aWFsUHJvcHMgKHByb3BzKSB7XG4gIC8vIHN0b3JlLmRpc3BhdGNoKHNlcnZlclJlbmRlckNsb2NrKGlzU2VydmVyKSlcbiAgc3RvcmUuZGlzcGF0Y2goYWRkQ291bnQoKSlcbiAgcmV0dXJuIHsgaXNTZXJ2ZXIgfVxufVxuICBjb21wb25lbnREaWRNb3VudCgpe1xuICAgIGNvbnNvbGUubG9nKCdGcm9tIENvdW50ZXIgQ29tcERpZE1UIScpXG4gIH1cbiAgcmVuZGVyKCkge1xuICAgIGNvbnNvbGUubG9nKCdGcm9tIENvdW50ZXIgUkVOREVSIE1FVEhPRCEnKVxuICAgIHJldHVybiAoXG4gICAgICA8ZGl2PlxuICAgICAgICBGUk9NIENPVU5URVJcblxuICAgICAgICA8aDMgY2xhc3NOYW1lPSdoZWxsbyc+VGhlIGNvdW50IGlzIDoge3RoaXMucHJvcHMuY291bnR9IDwvaDM+XG4gICAgICAgIDxidXR0b24gb25DbGljaz17dGhpcy5wcm9wcy5hZGRDb3VudH0+SU5DUkVNRU5UPC9idXR0b24+XG5cblxuICAgIDxzdHlsZSBqc3g+e2BcbiAgICAgICRjb2xvcjE6IHJlZDtcbiAgICAgICRjb2xvcjI6IGJsdWU7XG4gICAgICAkY29sb3IzOiB3aGl0ZTtcbiAgICAgICRjb2xvcjQ6IGN5YW47XG4gICAgICAuaGVsbG8ge1xuICAgICAgICBjb2xvcjogJGNvbG9yMztcbiAgICAgICAgYmFja2dyb3VuZDogJGNvbG9yMjtcbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgY29sb3I6ICRjb2xvcjE7XG4gICAgICAgICAgYmFja2dyb3VuZDogJGNvbG9yNDtcbiAgICAgICAgfVxuXG4gICAgICB9XG4gICAgYH08L3N0eWxlPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59XG5cblxuLy9SZXRyaWV2ZSBzdGF0ZSB0byB1c2UgaW4gcmVuZGVyOlxuY29uc3QgbWFwU3RhdGVUb1Byb3BzID0gKHN0YXRlKSA9PiB7XG4gIGNvbnNvbGUubG9nKCdDb3VudGVyOiBNYVN0VG9Qcm9wczogJywgc3RhdGUpXG4gIHJldHVybiB7XG4gICAgY291bnQ6IHN0YXRlLmNvdW50XG4gIH1cbn1cblxuXG5jb25zdCBtYXBEaXNwYXRjaFRvUHJvcHMgPSBkaXNwYXRjaCA9PiB7XG4gIHJldHVybiB7XG4gICAgLy8gUmV0cmlldmVzIGFjdGlvbiBpbiBzdG9yZSwgYW5kIG1ha2VzIGFjY3Jlc3NpYmxlIGFzIFwiYWRkQ291bnRcIlxuICAgIGFkZENvdW50OiBiaW5kQWN0aW9uQ3JlYXRvcnMoYWRkQ291bnQsIGRpc3BhdGNoKVxuICB9XG59XG5cbmV4cG9ydCBkZWZhdWx0IGNvbm5lY3QobWFwU3RhdGVUb1Byb3BzLCBtYXBEaXNwYXRjaFRvUHJvcHMpKENvdW50ZXIpIl19 */\n/*@ sourceURL=/Users/aaronadler/Desktop/next7-with-redux-wrapper/components/Counter.js */",
+        css: ".hello.jsx-2220005710{color:white;background:blue;}.hello.jsx-2220005710:hover{color:red;background:cyan;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hYXJvbmFkbGVyL0Rlc2t0b3AvbmV4dDctd2l0aC1yZWR1eC13cmFwcGVyL2NvbXBvbmVudHMvQ291bnRlci5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFxQmdCLEFBRWUsQUFHQSxVQUNNLEVBSEYsY0FHRyxFQUhGIiwiZmlsZSI6Ii9Vc2Vycy9hYXJvbmFkbGVyL0Rlc2t0b3AvbmV4dDctd2l0aC1yZWR1eC13cmFwcGVyL2NvbXBvbmVudHMvQ291bnRlci5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyBDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCB7IGJpbmRBY3Rpb25DcmVhdG9ycyB9IGZyb20gJ3JlZHV4J1xuaW1wb3J0IHsgY29ubmVjdCB9IGZyb20gJ3JlYWN0LXJlZHV4J1xuaW1wb3J0IHsgYWRkQ291bnQgfSBmcm9tICcuLi9yZWR1eC9hY3Rpb25zJztcblxuY2xhc3MgQ291bnRlciBleHRlbmRzIENvbXBvbmVudCB7XG5cblxuICBjb21wb25lbnREaWRNb3VudCgpe1xuICAgIGNvbnNvbGUubG9nKCdGcm9tIENvdW50ZXIgQ29tcERpZE1UIScpXG4gIH1cbiAgcmVuZGVyKCkge1xuICAgIGNvbnNvbGUubG9nKCdGcm9tIENvdW50ZXIgUkVOREVSIE1FVEhPRCEnKVxuICAgIHJldHVybiAoXG4gICAgICA8ZGl2PlxuICAgICAgICBGUk9NIENPVU5URVJcblxuICAgICAgICA8aDMgY2xhc3NOYW1lPSdoZWxsbyc+VGhlIGNvdW50IGlzIDoge3RoaXMucHJvcHMuY291bnR9IDwvaDM+XG4gICAgICAgIDxidXR0b24gb25DbGljaz17dGhpcy5wcm9wcy5hZGRDb3VudH0+SU5DUkVNRU5UPC9idXR0b24+XG5cblxuICAgIDxzdHlsZSBqc3g+e2BcbiAgICAgICRjb2xvcjE6IHJlZDtcbiAgICAgICRjb2xvcjI6IGJsdWU7XG4gICAgICAkY29sb3IzOiB3aGl0ZTtcbiAgICAgICRjb2xvcjQ6IGN5YW47XG4gICAgICAuaGVsbG8ge1xuICAgICAgICBjb2xvcjogJGNvbG9yMztcbiAgICAgICAgYmFja2dyb3VuZDogJGNvbG9yMjtcbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgY29sb3I6ICRjb2xvcjE7XG4gICAgICAgICAgYmFja2dyb3VuZDogJGNvbG9yNDtcbiAgICAgICAgfVxuXG4gICAgICB9XG4gICAgYH08L3N0eWxlPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59XG5cblxuLy9SZXRyaWV2ZSBzdGF0ZSB0byB1c2UgaW4gcmVuZGVyOlxuY29uc3QgbWFwU3RhdGVUb1Byb3BzID0gKHN0YXRlKSA9PiB7XG4gIGNvbnNvbGUubG9nKCdDb3VudGVyOiBNYVN0VG9Qcm9wczogJywgc3RhdGUpXG4gIHJldHVybiB7XG4gICAgY291bnQ6IHN0YXRlLmNvdW50XG4gIH1cbn1cblxuXG5jb25zdCBtYXBEaXNwYXRjaFRvUHJvcHMgPSBkaXNwYXRjaCA9PiB7XG4gIHJldHVybiB7XG4gICAgLy8gUmV0cmlldmVzIGFjdGlvbiBpbiBzdG9yZSwgYW5kIG1ha2VzIGFjY3Jlc3NpYmxlIGFzIFwiYWRkQ291bnRcIlxuICAgIGFkZENvdW50OiBiaW5kQWN0aW9uQ3JlYXRvcnMoYWRkQ291bnQsIGRpc3BhdGNoKVxuICB9XG59XG5cbmV4cG9ydCBkZWZhdWx0IGNvbm5lY3QobWFwU3RhdGVUb1Byb3BzLCBtYXBEaXNwYXRjaFRvUHJvcHMpKENvdW50ZXIpIl19 */\n/*@ sourceURL=/Users/aaronadler/Desktop/next7-with-redux-wrapper/components/Counter.js */",
         __self: this
       }));
-    }
-  }], [{
-    key: "getInitialProps",
-    value: function getInitialProps(props) {
-      // store.dispatch(serverRenderClock(isServer))
-      store.dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["addCount"])());
-      return {
-        isServer: isServer
-      };
     }
   }]);
 
@@ -236,33 +227,69 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../redux/actions */ "./redux/actions.js");
 var _jsxFileName = "/Users/aaronadler/Desktop/next7-with-redux-wrapper/components/NameTag.js";
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
  // import { startClock, changeName, addCount, serverRenderClock } from '../redux/store'
 
 
 
-var NameTag = function NameTag(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 9
-    },
-    __self: this
-  }, "FROM NAMETAG", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 11
-    },
-    __self: this
-  }, "Name is: ", props.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: props.changeName,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 12
-    },
-    __self: this
-  }, "CHange the name"));
-}; //Retrieve state to use in render:
+var NameTag =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NameTag, _React$Component);
+
+  function NameTag() {
+    _classCallCheck(this, NameTag);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NameTag).apply(this, arguments));
+  }
+
+  _createClass(NameTag, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 12
+        },
+        __self: this
+      }, "FROM NAMETAG", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 14
+        },
+        __self: this
+      }, "Name is: ", this.props.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.props.changeName,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 15
+        },
+        __self: this
+      }, "CHange the name"));
+    }
+  }]);
+
+  return NameTag;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); //Retrieve state to use in render:
 
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -320,13 +347,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
- // import { bindActionCreators } from 'redux'
-// import { startClock, addCount, serverRenderClock } from '../store'
-// import { connect } from 'react-redux'
-// import Page from '../components/Page'
 
 
-
+ // import { addCount } from '../redux/actions';
 
 var Index =
 /*#__PURE__*/
@@ -341,29 +364,18 @@ function (_React$Component) {
 
   _createClass(Index, [{
     key: "render",
-    // static getInitialProps ({ store, isServer }) {
-    //   store.dispatch(serverRenderClock(isServer))
-    //   store.dispatch(addCount())
-    //   return { isServer }
-    // }
-    // componentDidMount () {
-    // console.log({ store, isServer })
-    // this.timer = this.props.startClock()
-    // }
-    // componentWillUnmount () {
-    // clearInterval(this.timer)
-    // }
     value: function render() {
+      // console.log(props)
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Counter__WEBPACK_IMPORTED_MODULE_2__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 30
+          lineNumber: 14
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NameTag__WEBPACK_IMPORTED_MODULE_3__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 31
+          lineNumber: 15
         },
         __self: this
       }));
@@ -371,17 +383,7 @@ function (_React$Component) {
   }]);
 
   return Index;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // const mapDispatchToProps = dispatch => {
-//   return {
-//     addCount: bindActionCreators(addCount, dispatch),
-//     startClock: bindActionCreators(startClock, dispatch)
-//   }
-// }
-// export default connect(
-//   null,
-//   mapDispatchToProps
-// )(Index)
-
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
 
