@@ -7,10 +7,10 @@ class Counter extends Component {
 
 
   componentDidMount(){
-    console.log('From Counter CompDidMT!')
+    // console.log('From Counter CompDidMT!')
   }
   render() {
-    console.log('From Counter RENDER METHOD!')
+    // console.log('From Counter RENDER METHOD!')
     return (
       <div>
         FROM COUNTER
