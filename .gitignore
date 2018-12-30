@@ -6,6 +6,10 @@
 env-config.js
 now-secrets.json
 
+# next.js build output
+.next
+out
+
 ### macOS ###
 *.DS_Store
 .AppleDouble

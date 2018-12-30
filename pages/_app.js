@@ -14,9 +14,8 @@ class MyApp extends App {
   // IF you NEED to call different getInitialProps data fetching requests
   // from inside different pages, then REMOVE it from here at _APP.JS!!
   static async getInitialProps ({ Component, ctx }) {
-    // console.log('FROM _APP.JS GETINITIALPROPS:', arguments)
-    // console.log('LOG:', arguments.length)
-    // return a props object containing pageProps
+
+    {/* OTHER PROPS passed to the specific Component are simply being passed through here: */}
     return {
       pageProps: Component.getInitialProps
         ? await Component.getInitialProps(ctx)
@@ -29,6 +28,7 @@ class MyApp extends App {
     return (
       <Container>
         <Provider store={store}>
+          {/* OTHER PROPS passed to the specific Component are simply being passed through here: */}
           <Component {...pageProps} />
         </Provider>
       </Container>

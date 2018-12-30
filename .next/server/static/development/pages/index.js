@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -383,13 +383,8 @@ function (_React$Component) {
   _createClass(Index, [{
     key: "render",
     value: function render() {
-      // console.log(props)
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Counter__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NameTag__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-        route: "card",
-        params: {
-          slug: 'hello-world'
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Click to create an /Asher route")));
+      console.log(this.props);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Counter__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NameTag__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
 
@@ -452,16 +447,26 @@ var changeName = function changeName() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var routes = __webpack_require__(/*! next-routes */ "next-routes"); // Name   Page      Pattern
+var Router = __webpack_require__(/*! nextjs-dynamic-routes */ "nextjs-dynamic-routes");
 
+var router = new Router(); // THESE LINES MAY be needed for ONLY THE LINK TAG USAGE. I BELIEVE They're not needed to capture query params. Because I have been able to access query params WITHOUT this line!
 
-module.exports = routes() // ----   ----      -----
-// .add('about')                                       // about  about     /about
-// .add('blog', '/blog/:slug')                         // blog   blog      /blog/:slug
-.add('card', '/card/:slug'); // card   card      /blog/:slug
-// .add('user', '/user/:id', 'profile')                // user   profile   /user/:id
-// .add('/:noname/:lang(en|es)/:wow+', 'complex')      // (none) complex   /:noname/:lang(en|es)/:wow+
-// .add({name: 'beta', pattern: '/v3', page: 'v3'})    // beta   v3        /v3
+router.add({
+  name: 'demo',
+  pattern: '/demo/:id/:card'
+});
+router.add({
+  name: 'film',
+  pattern: '/films/:id'
+}); // if the name of your route is different from your component file name:
+
+router.add({
+  // 👇 'name' ONLY used in Link tag!
+  name: 'characterAndFilm',
+  pattern: '/character-and-film/:characterId/',
+  page: 'character-and-film'
+});
+module.exports = router;
 
 /***/ }),
 
@@ -476,7 +481,7 @@ module.exports = routes() // ----   ----      -----
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -488,14 +493,14 @@ module.exports = __webpack_require__(/*! ./pages/index.js */"./pages/index.js");
 
 /***/ }),
 
-/***/ "next-routes":
-/*!******************************!*\
-  !*** external "next-routes" ***!
-  \******************************/
+/***/ "nextjs-dynamic-routes":
+/*!****************************************!*\
+  !*** external "nextjs-dynamic-routes" ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("next-routes");
+module.exports = require("nextjs-dynamic-routes");
 
 /***/ }),
 

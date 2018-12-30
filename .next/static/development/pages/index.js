@@ -5220,321 +5220,6 @@ function isPlainObject(value) {
 
 /***/ }),
 
-/***/ "./node_modules/next-routes/dist/index.js":
-/*!************************************************!*\
-  !*** ./node_modules/next-routes/dist/index.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _pathToRegexp = _interopRequireDefault(__webpack_require__(/*! path-to-regexp */ "./node_modules/path-to-regexp/index.js"));
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _url = __webpack_require__(/*! url */ "./node_modules/url/url.js");
-
-var _link = _interopRequireDefault(__webpack_require__(/*! next/link */ "./node_modules/next/link.js"));
-
-var _router = _interopRequireDefault(__webpack_require__(/*! next/router */ "./node_modules/next/router.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-module.exports = function (opts) {
-  return new Routes(opts);
-};
-
-var Routes =
-/*#__PURE__*/
-function () {
-  function Routes() {
-    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-        _ref$Link = _ref.Link,
-        Link = _ref$Link === void 0 ? _link.default : _ref$Link,
-        _ref$Router = _ref.Router,
-        Router = _ref$Router === void 0 ? _router.default : _ref$Router;
-
-    _classCallCheck(this, Routes);
-
-    this.routes = [];
-    this.Link = this.getLink(Link);
-    this.Router = this.getRouter(Router);
-  }
-
-  _createClass(Routes, [{
-    key: "add",
-    value: function add(name, pattern, page) {
-      var options;
-
-      if (name instanceof Object) {
-        options = name;
-        name = options.name;
-      } else {
-        if (name[0] === '/') {
-          page = pattern;
-          pattern = name;
-          name = null;
-        }
-
-        options = {
-          name: name,
-          pattern: pattern,
-          page: page
-        };
-      }
-
-      if (this.findByName(name)) {
-        throw new Error("Route \"".concat(name, "\" already exists"));
-      }
-
-      this.routes.push(new Route(options));
-      return this;
-    }
-  }, {
-    key: "findByName",
-    value: function findByName(name) {
-      if (name) {
-        return this.routes.filter(function (route) {
-          return route.name === name;
-        })[0];
-      }
-    }
-  }, {
-    key: "match",
-    value: function match(url) {
-      var parsedUrl = (0, _url.parse)(url, true);
-      var pathname = parsedUrl.pathname,
-          query = parsedUrl.query;
-      return this.routes.reduce(function (result, route) {
-        if (result.route) return result;
-        var params = route.match(pathname);
-        if (!params) return result;
-        return _objectSpread({}, result, {
-          route: route,
-          params: params,
-          query: _objectSpread({}, query, params)
-        });
-      }, {
-        query: query,
-        parsedUrl: parsedUrl
-      });
-    }
-  }, {
-    key: "findAndGetUrls",
-    value: function findAndGetUrls(nameOrUrl, params) {
-      var route = this.findByName(nameOrUrl);
-
-      if (route) {
-        return {
-          route: route,
-          urls: route.getUrls(params),
-          byName: true
-        };
-      } else {
-        var _this$match = this.match(nameOrUrl),
-            _route = _this$match.route,
-            query = _this$match.query;
-
-        var href = _route ? _route.getHref(query) : nameOrUrl;
-        var urls = {
-          href: href,
-          as: nameOrUrl
-        };
-        return {
-          route: _route,
-          urls: urls
-        };
-      }
-    }
-  }, {
-    key: "getRequestHandler",
-    value: function getRequestHandler(app, customHandler) {
-      var _this = this;
-
-      var nextHandler = app.getRequestHandler();
-      return function (req, res) {
-        var _this$match2 = _this.match(req.url),
-            route = _this$match2.route,
-            query = _this$match2.query,
-            parsedUrl = _this$match2.parsedUrl;
-
-        if (route) {
-          if (customHandler) {
-            customHandler({
-              req: req,
-              res: res,
-              route: route,
-              query: query
-            });
-          } else {
-            app.render(req, res, route.page, query);
-          }
-        } else {
-          nextHandler(req, res, parsedUrl);
-        }
-      };
-    }
-  }, {
-    key: "getLink",
-    value: function getLink(Link) {
-      var _this2 = this;
-
-      var LinkRoutes = function LinkRoutes(props) {
-        var route = props.route,
-            params = props.params,
-            to = props.to,
-            newProps = _objectWithoutProperties(props, ["route", "params", "to"]);
-
-        var nameOrUrl = route || to;
-
-        if (nameOrUrl) {
-          Object.assign(newProps, _this2.findAndGetUrls(nameOrUrl, params).urls);
-        }
-
-        return _react.default.createElement(Link, newProps);
-      };
-
-      return LinkRoutes;
-    }
-  }, {
-    key: "getRouter",
-    value: function getRouter(Router) {
-      var _this3 = this;
-
-      var wrap = function wrap(method) {
-        return function (route, params, options) {
-          var _this3$findAndGetUrls = _this3.findAndGetUrls(route, params),
-              byName = _this3$findAndGetUrls.byName,
-              _this3$findAndGetUrls2 = _this3$findAndGetUrls.urls,
-              as = _this3$findAndGetUrls2.as,
-              href = _this3$findAndGetUrls2.href;
-
-          return Router[method](href, as, byName ? options : params);
-        };
-      };
-
-      Router.pushRoute = wrap('push');
-      Router.replaceRoute = wrap('replace');
-      Router.prefetchRoute = wrap('prefetch');
-      return Router;
-    }
-  }]);
-
-  return Routes;
-}();
-
-var Route =
-/*#__PURE__*/
-function () {
-  function Route(_ref2) {
-    var name = _ref2.name,
-        pattern = _ref2.pattern,
-        _ref2$page = _ref2.page,
-        page = _ref2$page === void 0 ? name : _ref2$page;
-
-    _classCallCheck(this, Route);
-
-    if (!name && !page) {
-      throw new Error("Missing page to render for route \"".concat(pattern, "\""));
-    }
-
-    this.name = name;
-    this.pattern = pattern || "/".concat(name);
-    this.page = page.replace(/(^|\/)index$/, '').replace(/^\/?/, '/');
-    this.regex = (0, _pathToRegexp.default)(this.pattern, this.keys = []);
-    this.keyNames = this.keys.map(function (key) {
-      return key.name;
-    });
-    this.toPath = _pathToRegexp.default.compile(this.pattern);
-  }
-
-  _createClass(Route, [{
-    key: "match",
-    value: function match(path) {
-      var values = this.regex.exec(path);
-
-      if (values) {
-        return this.valuesToParams(values.slice(1));
-      }
-    }
-  }, {
-    key: "valuesToParams",
-    value: function valuesToParams(values) {
-      var _this4 = this;
-
-      return values.reduce(function (params, val, i) {
-        if (val === undefined) return params;
-        return Object.assign(params, _defineProperty({}, _this4.keys[i].name, decodeURIComponent(val)));
-      }, {});
-    }
-  }, {
-    key: "getHref",
-    value: function getHref() {
-      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      return "".concat(this.page, "?").concat(toQuerystring(params));
-    }
-  }, {
-    key: "getAs",
-    value: function getAs() {
-      var _this5 = this;
-
-      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var as = this.toPath(params) || '/';
-      var keys = Object.keys(params);
-      var qsKeys = keys.filter(function (key) {
-        return _this5.keyNames.indexOf(key) === -1;
-      });
-      if (!qsKeys.length) return as;
-      var qsParams = qsKeys.reduce(function (qs, key) {
-        return Object.assign(qs, _defineProperty({}, key, params[key]));
-      }, {});
-      return "".concat(as, "?").concat(toQuerystring(qsParams));
-    }
-  }, {
-    key: "getUrls",
-    value: function getUrls(params) {
-      var as = this.getAs(params);
-      var href = this.getHref(params);
-      return {
-        as: as,
-        href: href
-      };
-    }
-  }]);
-
-  return Route;
-}();
-
-var toQuerystring = function toQuerystring(obj) {
-  return Object.keys(obj).filter(function (key) {
-    return obj[key] !== null && obj[key] !== undefined;
-  }).map(function (key) {
-    var value = obj[key];
-
-    if (Array.isArray(value)) {
-      value = value.join('/');
-    }
-
-    return [encodeURIComponent(key), encodeURIComponent(value)].join('=');
-  }).join('&');
-};
-
-/***/ }),
-
 /***/ "./node_modules/next/dist/lib/EventEmitter.js":
 /*!****************************************************!*\
   !*** ./node_modules/next/dist/lib/EventEmitter.js ***!
@@ -7327,6 +7012,442 @@ module.exports = __webpack_require__(/*! ./dist/lib/router */ "./node_modules/ne
 
 /***/ }),
 
+/***/ "./node_modules/nextjs-dynamic-routes/dist/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/nextjs-dynamic-routes/dist/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toString", function() { return toString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromString", function() { return fromString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return parseUrl; });
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var toString = function toString(params) {
+  var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '?';
+
+  var queryString = Object.entries(params).map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        k = _ref2[0],
+        v = _ref2[1];
+
+    return k + '=' + v;
+  }).join('&');
+
+  return queryString ? prefix + queryString : '';
+};
+
+var fromString = function fromString(str) {
+  return str.replace(/^\?/, '').split('&').map(function (str) {
+    return str.split('=');
+  }).filter(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 1),
+        k = _ref4[0];
+
+    return !!k;
+  }).reduce(function (acc, _ref5) {
+    var _ref6 = _slicedToArray(_ref5, 2),
+        k = _ref6[0],
+        v = _ref6[1];
+
+    return Object.assign(acc, _defineProperty({}, k, v));
+  }, {});
+};
+
+var parseUrl = function parseUrl(url) {
+  var _url$split = url.split('?'),
+      _url$split2 = _slicedToArray(_url$split, 2),
+      pathname = _url$split2[0],
+      _url$split2$ = _url$split2[1],
+      search = _url$split2$ === undefined ? '' : _url$split2$;
+
+  return {
+    pathname: pathname,
+    queryParams: fromString(search)
+  };
+};
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queryString__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__object__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__array__ = __webpack_require__(6);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "replaceWithParams", function() { return replaceWithParams; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addInitialSlash", function() { return addInitialSlash; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLinkProps", function() { return createLinkProps; });
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+
+
+
+
+var paramRegExp = /(:[^\/&\?]*\??)(\/|$)/g;
+
+var escapeRegExp = function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+};
+
+var replaceWithParams = function replaceWithParams(pattern, params) {
+  return Object.keys(params).reduce(function (acc, param) {
+    return acc.replace(new RegExp(':' + escapeRegExp(param) + '\\??(?=(\\/|$|\\?))'), params[param]);
+  }, pattern).replace(paramRegExp, '');
+};
+
+var addInitialSlash = function addInitialSlash(str) {
+  return !!str.match(/^\//) ? str : '/' + str;
+};
+
+var createLinkProps = function createLinkProps() {
+  var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var pattern = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var params = arguments[2];
+
+  var _splitProperties = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__object__["a" /* splitProperties */])(function (_, key) {
+    return pattern.match(':' + key);
+  }, params),
+      _splitProperties2 = _slicedToArray(_splitProperties, 2),
+      inlineParams = _splitProperties2[0],
+      _splitProperties2$ = _splitProperties2[1],
+      _splitProperties2$$qu = _splitProperties2$.queryParams,
+      queryParams = _splitProperties2$$qu === undefined ? {} : _splitProperties2$$qu,
+      restParams = _objectWithoutProperties(_splitProperties2$, ['queryParams']);
+
+  return _extends({}, restParams, {
+    href: '' + addInitialSlash(page) + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queryString__["toString"])(_extends({}, queryParams, inlineParams)),
+    as: '' + replaceWithParams(pattern, inlineParams) + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queryString__["toString"])(queryParams)
+  });
+};
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = __webpack_require__(/*! next/router */ "./node_modules/next/router.js");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = __webpack_require__(/*! path-match */ "./node_modules/path-match/index.js");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export flatMap */
+var flatMap = function flatMap(f, xs) {
+  return xs.reduce(function (acc, x) {
+    return acc.concat(f(x));
+  }, []);
+};
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export mapValues */
+/* unused harmony export mapKeys */
+/* unused harmony export filterValues */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return splitProperties; });
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var mapValues = function mapValues(mapper) {
+  return function (obj) {
+    return Object.keys(obj).reduce(function (acc, k) {
+      return Object.assign(acc, _defineProperty({}, k, mapper(obj[k], k, obj)));
+    }, {});
+  };
+};
+
+var mapKeys = function mapKeys(mapper) {
+  return function (obj) {
+    return Object.keys(obj).reduce(function (acc, k) {
+      return Object.assign(acc, _defineProperty({}, mapper(k, obj[k], obj), obj[k]));
+    }, {});
+  };
+};
+
+var filterValues = function filterValues(predicate, obj) {
+  return Object.entries(obj).reduce(function (acc, _ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        k = _ref2[0],
+        v = _ref2[1];
+
+    return predicate(v, k) ? Object.assign(acc, _defineProperty({}, k, v)) : acc;
+  }, {});
+};
+
+var splitProperties = function splitProperties(isLeft, obj) {
+  return Object.entries(obj).reduce(function (_ref3, _ref4) {
+    var _ref6 = _slicedToArray(_ref3, 2),
+        left = _ref6[0],
+        right = _ref6[1];
+
+    var _ref5 = _slicedToArray(_ref4, 2),
+        k = _ref5[0],
+        v = _ref5[1];
+
+    return isLeft(v, k) ? [_extends({}, left, _defineProperty({}, k, v)), right] : [left, _extends({}, right, _defineProperty({}, k, v))];
+  }, [{}, {}]);
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var pathMatch = __webpack_require__(4);
+var React = __webpack_require__(5);
+var Link = __webpack_require__(2).default;
+var NextRouter = __webpack_require__(3).default;
+
+var _require = __webpack_require__(0),
+    parseUrl = _require.parseUrl;
+
+var _require2 = __webpack_require__(1),
+    addInitialSlash = _require2.addInitialSlash,
+    createLinkProps = _require2.createLinkProps,
+    replaceWithParams = _require2.replaceWithParams;
+
+var match = pathMatch();
+
+var Router = function Router() {
+  var _this = this;
+
+  _classCallCheck(this, Router);
+
+  this.routes = [];
+
+  this.add = function (_ref) {
+    var pattern = _ref.pattern,
+        name = _ref.name,
+        _ref$page = _ref.page,
+        page = _ref$page === undefined ? addInitialSlash(name) : _ref$page;
+
+    _this.routes.push({ pattern: pattern, page: page, name: name });
+    return _this;
+  };
+
+  this.getRoute = function (name) {
+    var route = _this.routes.find(function (r) {
+      return r.name === name;
+    });
+    if (!route) throw new Error('The route ' + name + ' doesn\'t exist.');
+    return route;
+  };
+
+  this.Link = function (_ref2) {
+    var children = _ref2.children,
+        name = _ref2.route,
+        params = _objectWithoutProperties(_ref2, ['children', 'route']);
+
+    var _getRoute = _this.getRoute(name),
+        page = _getRoute.page,
+        pattern = _getRoute.pattern;
+
+    return React.createElement(
+      Link,
+      createLinkProps(page, pattern, params),
+      children
+    );
+  };
+
+  this.pushRoute = function (name) {
+    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments[2];
+
+    var _getRoute2 = _this.getRoute(name),
+        page = _getRoute2.page,
+        pattern = _getRoute2.pattern;
+
+    var _createLinkProps = createLinkProps(page, pattern, params),
+        href = _createLinkProps.href,
+        as = _createLinkProps.as;
+
+    return NextRouter.push(href, as, options);
+  };
+
+  this.replaceRoute = function (name) {
+    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments[2];
+
+    var _getRoute3 = _this.getRoute(name),
+        page = _getRoute3.page,
+        pattern = _getRoute3.pattern;
+
+    var _createLinkProps2 = createLinkProps(page, pattern, params),
+        href = _createLinkProps2.href,
+        as = _createLinkProps2.as;
+
+    return Router.replace(href, as, options);
+  };
+
+  this.prefetchRoute = function (name) {
+    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    var _getRoute4 = _this.getRoute(name),
+        page = _getRoute4.page,
+        pattern = _getRoute4.pattern;
+
+    var _createLinkProps3 = createLinkProps(page, pattern, params),
+        href = _createLinkProps3.href;
+
+    return Router.prefetch(href);
+  };
+
+  this.getMatchingRoute = function (url) {
+    return _this.routes.reduce(function (acc, _ref3) {
+      var page = _ref3.page,
+          pattern = _ref3.pattern;
+
+      if (acc.page) return acc;
+
+      var _parseUrl = parseUrl(url),
+          pathname = _parseUrl.pathname,
+          queryParams = _parseUrl.queryParams;
+
+      var params = match(pattern)(pathname);
+      if (params) return { page: page, params: _extends({}, params, queryParams) };else return acc;
+    }, {});
+  };
+
+  this.getRequestHandler = function (app) {
+    var handle = app.getRequestHandler();
+
+    return function (req, res) {
+      var _getMatchingRoute = _this.getMatchingRoute(req.url),
+          page = _getMatchingRoute.page,
+          params = _getMatchingRoute.params;
+
+      if (page) app.render(req, res, page, params);else handle(req, res);
+    };
+  };
+
+  this.getRoutePath = function (routeName, params) {
+    var _getRoute5 = _this.getRoute(routeName),
+        pattern = _getRoute5.pattern;
+
+    return replaceWithParams(pattern, params);
+  };
+};
+
+module.exports = Router;
+
+/***/ })
+/******/ ]);
+
+/***/ }),
+
 /***/ "./node_modules/object-assign/index.js":
 /*!***************************************************************************************************!*\
   !*** delegated ./node_modules/object-assign/index.js from dll-reference dll_831a3634f66cb1dada0c ***!
@@ -7691,12 +7812,248 @@ module.exports = function shimAssign() {
 
 /***/ }),
 
-/***/ "./node_modules/path-to-regexp/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/path-to-regexp/index.js ***!
-  \**********************************************/
+/***/ "./node_modules/path-match/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/path-match/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var pathToRegexp = __webpack_require__(/*! path-to-regexp */ "./node_modules/path-match/node_modules/path-to-regexp/index.js");
+var createError = __webpack_require__(/*! http-errors */ "./node_modules/path-match/node_modules/http-errors/index.js");
+
+module.exports = function (options) {
+  options = options || {};
+
+  return function (path) {
+    var keys = [];
+    var re = pathToRegexp(path, keys, options);
+
+    return function (pathname, params) {
+      var m = re.exec(pathname);
+      if (!m) return false;
+
+      params = params || {};
+
+      var key, param;
+      for (var i = 0; i < keys.length; i++) {
+        key = keys[i];
+        param = m[i + 1];
+        if (!param) continue;
+        params[key.name] = decodeParam(param);
+        if (key.repeat) params[key.name] = params[key.name].split(key.delimiter)
+      }
+
+      return params;
+    }
+  }
+}
+
+function decodeParam(param) {
+  try {
+    return decodeURIComponent(param);
+  } catch (_) {
+    throw createError(400, 'failed to decode param "' + param + '"');
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/path-match/node_modules/http-errors/index.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/path-match/node_modules/http-errors/index.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var statuses = __webpack_require__(/*! statuses */ "./node_modules/statuses/index.js");
+var inherits = __webpack_require__(/*! inherits */ "./node_modules/path-match/node_modules/inherits/inherits_browser.js");
+
+function toIdentifier(str) {
+  return str.split(' ').map(function (token) {
+    return token.slice(0, 1).toUpperCase() + token.slice(1)
+  }).join('').replace(/[^ _0-9a-z]/gi, '')
+}
+
+exports = module.exports = function httpError() {
+  // so much arity going on ~_~
+  var err;
+  var msg;
+  var status = 500;
+  var props = {};
+  for (var i = 0; i < arguments.length; i++) {
+    var arg = arguments[i];
+    if (arg instanceof Error) {
+      err = arg;
+      status = err.status || err.statusCode || status;
+      continue;
+    }
+    switch (typeof arg) {
+      case 'string':
+        msg = arg;
+        break;
+      case 'number':
+        status = arg;
+        break;
+      case 'object':
+        props = arg;
+        break;
+    }
+  }
+
+  if (typeof status !== 'number' || !statuses[status]) {
+    status = 500
+  }
+
+  // constructor
+  var HttpError = exports[status]
+
+  if (!err) {
+    // create error
+    err = HttpError
+      ? new HttpError(msg)
+      : new Error(msg || statuses[status])
+    Error.captureStackTrace(err, httpError)
+  }
+
+  if (!HttpError || !(err instanceof HttpError)) {
+    // add properties to generic error
+    err.expose = status < 500
+    err.status = err.statusCode = status
+  }
+
+  for (var key in props) {
+    if (key !== 'status' && key !== 'statusCode') {
+      err[key] = props[key]
+    }
+  }
+
+  return err;
+};
+
+var HttpError = exports.HttpError = function HttpError() {
+  throw new TypeError('cannot construct abstract class');
+};
+
+inherits(HttpError, Error);
+
+// create generic error objects
+var codes = statuses.codes.filter(function (num) {
+  return num >= 400;
+});
+
+codes.forEach(function (code) {
+  var name = toIdentifier(statuses[code])
+  var className = name.match(/Error$/) ? name : name + 'Error'
+
+  if (code >= 500) {
+    var ServerError = function ServerError(msg) {
+      var self = new Error(msg != null ? msg : statuses[code])
+      Error.captureStackTrace(self, ServerError)
+      self.__proto__ = ServerError.prototype
+      Object.defineProperty(self, 'name', {
+        enumerable: false,
+        configurable: true,
+        value: className,
+        writable: true
+      })
+      return self
+    }
+    inherits(ServerError, HttpError);
+    ServerError.prototype.status =
+    ServerError.prototype.statusCode = code;
+    ServerError.prototype.expose = false;
+    exports[code] =
+    exports[name] = ServerError
+    return;
+  }
+
+  var ClientError = function ClientError(msg) {
+    var self = new Error(msg != null ? msg : statuses[code])
+    Error.captureStackTrace(self, ClientError)
+    self.__proto__ = ClientError.prototype
+    Object.defineProperty(self, 'name', {
+      enumerable: false,
+      configurable: true,
+      value: className,
+      writable: true
+    })
+    return self
+  }
+  inherits(ClientError, HttpError);
+  ClientError.prototype.status =
+  ClientError.prototype.statusCode = code;
+  ClientError.prototype.expose = true;
+  exports[code] =
+  exports[name] = ClientError
+  return;
+});
+
+// backwards-compatibility
+exports["I'mateapot"] = exports.ImATeapot
+
+
+/***/ }),
+
+/***/ "./node_modules/path-match/node_modules/inherits/inherits_browser.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/path-match/node_modules/inherits/inherits_browser.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
+
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    var TempCtor = function () {}
+    TempCtor.prototype = superCtor.prototype
+    ctor.prototype = new TempCtor()
+    ctor.prototype.constructor = ctor
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/path-match/node_modules/isarray/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/path-match/node_modules/isarray/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/path-match/node_modules/path-to-regexp/index.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/path-match/node_modules/path-to-regexp/index.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isarray = __webpack_require__(/*! isarray */ "./node_modules/path-match/node_modules/isarray/index.js")
 
 /**
  * Expose `pathToRegexp`.
@@ -7706,12 +8063,6 @@ module.exports.parse = parse
 module.exports.compile = compile
 module.exports.tokensToFunction = tokensToFunction
 module.exports.tokensToRegExp = tokensToRegExp
-
-/**
- * Default configs.
- */
-var DEFAULT_DELIMITER = '/'
-var DEFAULT_DELIMITERS = './'
 
 /**
  * The main path matching regexp utility.
@@ -7725,9 +8076,10 @@ var PATH_REGEXP = new RegExp([
   // Match Express-style parameters and un-named parameters with a prefix
   // and optional suffixes. Matches appear as:
   //
-  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?"]
-  // "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined]
-  '(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?'
+  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
+  // "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
+  // "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
+  '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?|(\\*))'
 ].join('|'), 'g')
 
 /**
@@ -7742,12 +8094,10 @@ function parse (str, options) {
   var key = 0
   var index = 0
   var path = ''
-  var defaultDelimiter = (options && options.delimiter) || DEFAULT_DELIMITER
-  var delimiters = (options && options.delimiters) || DEFAULT_DELIMITERS
-  var pathEscaped = false
+  var defaultDelimiter = options && options.delimiter || '/'
   var res
 
-  while ((res = PATH_REGEXP.exec(str)) !== null) {
+  while ((res = PATH_REGEXP.exec(str)) != null) {
     var m = res[0]
     var escaped = res[1]
     var offset = res.index
@@ -7757,53 +8107,49 @@ function parse (str, options) {
     // Ignore already escaped sequences.
     if (escaped) {
       path += escaped[1]
-      pathEscaped = true
       continue
     }
 
-    var prev = ''
     var next = str[index]
-    var name = res[2]
-    var capture = res[3]
-    var group = res[4]
-    var modifier = res[5]
-
-    if (!pathEscaped && path.length) {
-      var k = path.length - 1
-
-      if (delimiters.indexOf(path[k]) > -1) {
-        prev = path[k]
-        path = path.slice(0, k)
-      }
-    }
+    var prefix = res[2]
+    var name = res[3]
+    var capture = res[4]
+    var group = res[5]
+    var modifier = res[6]
+    var asterisk = res[7]
 
     // Push the current path onto the tokens.
     if (path) {
       tokens.push(path)
       path = ''
-      pathEscaped = false
     }
 
-    var partial = prev !== '' && next !== undefined && next !== prev
+    var partial = prefix != null && next != null && next !== prefix
     var repeat = modifier === '+' || modifier === '*'
     var optional = modifier === '?' || modifier === '*'
-    var delimiter = prev || defaultDelimiter
+    var delimiter = res[2] || defaultDelimiter
     var pattern = capture || group
 
     tokens.push({
       name: name || key++,
-      prefix: prev,
+      prefix: prefix || '',
       delimiter: delimiter,
       optional: optional,
       repeat: repeat,
       partial: partial,
-      pattern: pattern ? escapeGroup(pattern) : '[^' + escapeString(delimiter) + ']+?'
+      asterisk: !!asterisk,
+      pattern: pattern ? escapeGroup(pattern) : (asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?')
     })
   }
 
-  // Push any remaining characters.
-  if (path || index < str.length) {
-    tokens.push(path + str.substr(index))
+  // Match any characters still remaining.
+  if (index < str.length) {
+    path += str.substr(index)
+  }
+
+  // If the path exists, push it onto the end.
+  if (path) {
+    tokens.push(path)
   }
 
   return tokens
@@ -7821,6 +8167,30 @@ function compile (str, options) {
 }
 
 /**
+ * Prettier encoding of URI path segments.
+ *
+ * @param  {string}
+ * @return {string}
+ */
+function encodeURIComponentPretty (str) {
+  return encodeURI(str).replace(/[\/?#]/g, function (c) {
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase()
+  })
+}
+
+/**
+ * Encode the asterisk parameter. Similar to `pretty`, but allows slashes.
+ *
+ * @param  {string}
+ * @return {string}
+ */
+function encodeAsterisk (str) {
+  return encodeURI(str).replace(/[?#]/g, function (c) {
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase()
+  })
+}
+
+/**
  * Expose a method for transforming tokens into the path function.
  */
 function tokensToFunction (tokens) {
@@ -7834,37 +8204,55 @@ function tokensToFunction (tokens) {
     }
   }
 
-  return function (data, options) {
+  return function (obj, opts) {
     var path = ''
-    var encode = (options && options.encode) || encodeURIComponent
+    var data = obj || {}
+    var options = opts || {}
+    var encode = options.pretty ? encodeURIComponentPretty : encodeURIComponent
 
     for (var i = 0; i < tokens.length; i++) {
       var token = tokens[i]
 
       if (typeof token === 'string') {
         path += token
+
         continue
       }
 
-      var value = data ? data[token.name] : undefined
+      var value = data[token.name]
       var segment
 
-      if (Array.isArray(value)) {
+      if (value == null) {
+        if (token.optional) {
+          // Prepend partial segment prefixes.
+          if (token.partial) {
+            path += token.prefix
+          }
+
+          continue
+        } else {
+          throw new TypeError('Expected "' + token.name + '" to be defined')
+        }
+      }
+
+      if (isarray(value)) {
         if (!token.repeat) {
-          throw new TypeError('Expected "' + token.name + '" to not repeat, but got array')
+          throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`')
         }
 
         if (value.length === 0) {
-          if (token.optional) continue
-
-          throw new TypeError('Expected "' + token.name + '" to not be empty')
+          if (token.optional) {
+            continue
+          } else {
+            throw new TypeError('Expected "' + token.name + '" to not be empty')
+          }
         }
 
         for (var j = 0; j < value.length; j++) {
           segment = encode(value[j])
 
           if (!matches[i].test(segment)) {
-            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '"')
+            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received `' + JSON.stringify(segment) + '`')
           }
 
           path += (j === 0 ? token.prefix : token.delimiter) + segment
@@ -7873,25 +8261,13 @@ function tokensToFunction (tokens) {
         continue
       }
 
-      if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-        segment = encode(String(value))
+      segment = token.asterisk ? encodeAsterisk(value) : encode(value)
 
-        if (!matches[i].test(segment)) {
-          throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but got "' + segment + '"')
-        }
-
-        path += token.prefix + segment
-        continue
+      if (!matches[i].test(segment)) {
+        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"')
       }
 
-      if (token.optional) {
-        // Prepend partial segment prefixes.
-        if (token.partial) path += token.prefix
-
-        continue
-      }
-
-      throw new TypeError('Expected "' + token.name + '" to be ' + (token.repeat ? 'an array' : 'a string'))
+      path += token.prefix + segment
     }
 
     return path
@@ -7905,7 +8281,7 @@ function tokensToFunction (tokens) {
  * @return {string}
  */
 function escapeString (str) {
-  return str.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1')
+  return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1')
 }
 
 /**
@@ -7915,7 +8291,19 @@ function escapeString (str) {
  * @return {string}
  */
 function escapeGroup (group) {
-  return group.replace(/([=!:$/()])/g, '\\$1')
+  return group.replace(/([=!:$\/()])/g, '\\$1')
+}
+
+/**
+ * Attach the keys as a property of the regexp.
+ *
+ * @param  {!RegExp} re
+ * @param  {Array}   keys
+ * @return {!RegExp}
+ */
+function attachKeys (re, keys) {
+  re.keys = keys
+  return re
 }
 
 /**
@@ -7925,19 +8313,17 @@ function escapeGroup (group) {
  * @return {string}
  */
 function flags (options) {
-  return options && options.sensitive ? '' : 'i'
+  return options.sensitive ? '' : 'i'
 }
 
 /**
  * Pull out keys from a regexp.
  *
  * @param  {!RegExp} path
- * @param  {Array=}  keys
+ * @param  {!Array}  keys
  * @return {!RegExp}
  */
 function regexpToRegexp (path, keys) {
-  if (!keys) return path
-
   // Use a negative lookahead to match only capturing groups.
   var groups = path.source.match(/\((?!\?)/g)
 
@@ -7950,20 +8336,21 @@ function regexpToRegexp (path, keys) {
         optional: false,
         repeat: false,
         partial: false,
+        asterisk: false,
         pattern: null
       })
     }
   }
 
-  return path
+  return attachKeys(path, keys)
 }
 
 /**
  * Transform an array into a regexp.
  *
  * @param  {!Array}  path
- * @param  {Array=}  keys
- * @param  {Object=} options
+ * @param  {Array}   keys
+ * @param  {!Object} options
  * @return {!RegExp}
  */
 function arrayToRegexp (path, keys, options) {
@@ -7973,15 +8360,17 @@ function arrayToRegexp (path, keys, options) {
     parts.push(pathToRegexp(path[i], keys, options).source)
   }
 
-  return new RegExp('(?:' + parts.join('|') + ')', flags(options))
+  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options))
+
+  return attachKeys(regexp, keys)
 }
 
 /**
  * Create a path regexp from string input.
  *
  * @param  {string}  path
- * @param  {Array=}  keys
- * @param  {Object=} options
+ * @param  {!Array}  keys
+ * @param  {!Object} options
  * @return {!RegExp}
  */
 function stringToRegexp (path, keys, options) {
@@ -7991,21 +8380,22 @@ function stringToRegexp (path, keys, options) {
 /**
  * Expose a function for taking tokens and returning a RegExp.
  *
- * @param  {!Array}  tokens
- * @param  {Array=}  keys
- * @param  {Object=} options
+ * @param  {!Array}          tokens
+ * @param  {(Array|Object)=} keys
+ * @param  {Object=}         options
  * @return {!RegExp}
  */
 function tokensToRegExp (tokens, keys, options) {
+  if (!isarray(keys)) {
+    options = /** @type {!Object} */ (keys || options)
+    keys = []
+  }
+
   options = options || {}
 
   var strict = options.strict
   var end = options.end !== false
-  var delimiter = escapeString(options.delimiter || DEFAULT_DELIMITER)
-  var delimiters = options.delimiters || DEFAULT_DELIMITERS
-  var endsWith = [].concat(options.endsWith || []).map(escapeString).concat('$').join('|')
   var route = ''
-  var isEndDelimited = false
 
   // Iterate over the tokens and create our regexp string.
   for (var i = 0; i < tokens.length; i++) {
@@ -8013,37 +8403,50 @@ function tokensToRegExp (tokens, keys, options) {
 
     if (typeof token === 'string') {
       route += escapeString(token)
-      isEndDelimited = i === tokens.length - 1 && delimiters.indexOf(token[token.length - 1]) > -1
     } else {
       var prefix = escapeString(token.prefix)
-      var capture = token.repeat
-        ? '(?:' + token.pattern + ')(?:' + prefix + '(?:' + token.pattern + '))*'
-        : token.pattern
+      var capture = '(?:' + token.pattern + ')'
 
-      if (keys) keys.push(token)
+      keys.push(token)
+
+      if (token.repeat) {
+        capture += '(?:' + prefix + capture + ')*'
+      }
 
       if (token.optional) {
-        if (token.partial) {
-          route += prefix + '(' + capture + ')?'
+        if (!token.partial) {
+          capture = '(?:' + prefix + '(' + capture + '))?'
         } else {
-          route += '(?:' + prefix + '(' + capture + '))?'
+          capture = prefix + '(' + capture + ')?'
         }
       } else {
-        route += prefix + '(' + capture + ')'
+        capture = prefix + '(' + capture + ')'
       }
+
+      route += capture
     }
   }
 
-  if (end) {
-    if (!strict) route += '(?:' + delimiter + ')?'
+  var delimiter = escapeString(options.delimiter || '/')
+  var endsWithDelimiter = route.slice(-delimiter.length) === delimiter
 
-    route += endsWith === '$' ? '$' : '(?=' + endsWith + ')'
-  } else {
-    if (!strict) route += '(?:' + delimiter + '(?=' + endsWith + '))?'
-    if (!isEndDelimited) route += '(?=' + delimiter + '|' + endsWith + ')'
+  // In non-strict mode we allow a slash at the end of match. If the path to
+  // match already ends with a slash, we remove it for consistency. The slash
+  // is valid at the end of a path match, not in the middle. This is important
+  // in non-ending mode, where "/test/" shouldn't match "/test//route".
+  if (!strict) {
+    route = (endsWithDelimiter ? route.slice(0, -delimiter.length) : route) + '(?:' + delimiter + '(?=$))?'
   }
 
-  return new RegExp('^' + route, flags(options))
+  if (end) {
+    route += '$'
+  } else {
+    // In non-ending mode, we need the capturing groups to match as much as
+    // possible by using a positive lookahead to the end or next path segment.
+    route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)'
+  }
+
+  return attachKeys(new RegExp('^' + route, flags(options)), keys)
 }
 
 /**
@@ -8054,20 +8457,27 @@ function tokensToRegExp (tokens, keys, options) {
  * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
  *
  * @param  {(string|RegExp|Array)} path
- * @param  {Array=}                keys
+ * @param  {(Array|Object)=}       keys
  * @param  {Object=}               options
  * @return {!RegExp}
  */
 function pathToRegexp (path, keys, options) {
+  if (!isarray(keys)) {
+    options = /** @type {!Object} */ (keys || options)
+    keys = []
+  }
+
+  options = options || {}
+
   if (path instanceof RegExp) {
-    return regexpToRegexp(path, keys)
+    return regexpToRegexp(path, /** @type {!Array} */ (keys))
   }
 
-  if (Array.isArray(path)) {
-    return arrayToRegexp(/** @type {!Array} */ (path), keys, options)
+  if (isarray(path)) {
+    return arrayToRegexp(/** @type {!Array} */ (path), /** @type {!Array} */ (keys), options)
   }
 
-  return stringToRegexp(/** @type {string} */ (path), keys, options)
+  return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
 
@@ -12265,6 +12675,142 @@ if (hadRuntime) {
 
 /***/ }),
 
+/***/ "./node_modules/statuses/codes.json":
+/*!******************************************!*\
+  !*** ./node_modules/statuses/codes.json ***!
+  \******************************************/
+/*! exports provided: 100, 101, 102, 103, 200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302, 303, 304, 305, 306, 307, 308, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 421, 422, 423, 424, 425, 426, 428, 429, 431, 451, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, default */
+/***/ (function(module) {
+
+module.exports = {"100":"Continue","101":"Switching Protocols","102":"Processing","103":"Early Hints","200":"OK","201":"Created","202":"Accepted","203":"Non-Authoritative Information","204":"No Content","205":"Reset Content","206":"Partial Content","207":"Multi-Status","208":"Already Reported","226":"IM Used","300":"Multiple Choices","301":"Moved Permanently","302":"Found","303":"See Other","304":"Not Modified","305":"Use Proxy","306":"(Unused)","307":"Temporary Redirect","308":"Permanent Redirect","400":"Bad Request","401":"Unauthorized","402":"Payment Required","403":"Forbidden","404":"Not Found","405":"Method Not Allowed","406":"Not Acceptable","407":"Proxy Authentication Required","408":"Request Timeout","409":"Conflict","410":"Gone","411":"Length Required","412":"Precondition Failed","413":"Payload Too Large","414":"URI Too Long","415":"Unsupported Media Type","416":"Range Not Satisfiable","417":"Expectation Failed","418":"I'm a teapot","421":"Misdirected Request","422":"Unprocessable Entity","423":"Locked","424":"Failed Dependency","425":"Unordered Collection","426":"Upgrade Required","428":"Precondition Required","429":"Too Many Requests","431":"Request Header Fields Too Large","451":"Unavailable For Legal Reasons","500":"Internal Server Error","501":"Not Implemented","502":"Bad Gateway","503":"Service Unavailable","504":"Gateway Timeout","505":"HTTP Version Not Supported","506":"Variant Also Negotiates","507":"Insufficient Storage","508":"Loop Detected","509":"Bandwidth Limit Exceeded","510":"Not Extended","511":"Network Authentication Required"};
+
+/***/ }),
+
+/***/ "./node_modules/statuses/index.js":
+/*!****************************************!*\
+  !*** ./node_modules/statuses/index.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*!
+ * statuses
+ * Copyright(c) 2014 Jonathan Ong
+ * Copyright(c) 2016 Douglas Christopher Wilson
+ * MIT Licensed
+ */
+
+
+
+/**
+ * Module dependencies.
+ * @private
+ */
+
+var codes = __webpack_require__(/*! ./codes.json */ "./node_modules/statuses/codes.json")
+
+/**
+ * Module exports.
+ * @public
+ */
+
+module.exports = status
+
+// status code to message map
+status.STATUS_CODES = codes
+
+// array of status codes
+status.codes = populateStatusesMap(status, codes)
+
+// status codes for redirects
+status.redirect = {
+  300: true,
+  301: true,
+  302: true,
+  303: true,
+  305: true,
+  307: true,
+  308: true
+}
+
+// status codes for empty bodies
+status.empty = {
+  204: true,
+  205: true,
+  304: true
+}
+
+// status codes for when you should retry the request
+status.retry = {
+  502: true,
+  503: true,
+  504: true
+}
+
+/**
+ * Populate the statuses map for given codes.
+ * @private
+ */
+
+function populateStatusesMap (statuses, codes) {
+  var arr = []
+
+  Object.keys(codes).forEach(function forEachCode (code) {
+    var message = codes[code]
+    var status = Number(code)
+
+    // Populate properties
+    statuses[status] = message
+    statuses[message] = status
+    statuses[message.toLowerCase()] = status
+
+    // Add to array
+    arr.push(status)
+  })
+
+  return arr
+}
+
+/**
+ * Get the status code.
+ *
+ * Given a number, this will throw if it is not a known status
+ * code, otherwise the code will be returned. Given a string,
+ * the string will be parsed for a number and return the code
+ * if valid, otherwise will lookup the code assuming this is
+ * the status message.
+ *
+ * @param {string|number} code
+ * @returns {number}
+ * @public
+ */
+
+function status (code) {
+  if (typeof code === 'number') {
+    if (!status[code]) throw new Error('invalid status code: ' + code)
+    return code
+  }
+
+  if (typeof code !== 'string') {
+    throw new TypeError('code must be a number or string')
+  }
+
+  // '403'
+  var n = parseInt(code, 10)
+  if (!isNaN(n)) {
+    if (!status[n]) throw new Error('invalid status code: ' + n)
+    return n
+  }
+
+  n = status[code.toLowerCase()]
+  if (!n) throw new Error('invalid status message: "' + code + '"')
+  return n
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/string-hash/index.js":
 /*!*******************************************!*\
   !*** ./node_modules/string-hash/index.js ***!
@@ -13955,13 +14501,8 @@ function (_React$Component) {
   _createClass(Index, [{
     key: "render",
     value: function render() {
-      // console.log(props)
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Counter__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NameTag__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-        route: "card",
-        params: {
-          slug: 'hello-world'
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Click to create an /Asher route")));
+      console.log(this.props);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Counter__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NameTag__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
 
@@ -14043,20 +14584,30 @@ var changeName = function changeName() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var routes = __webpack_require__(/*! next-routes */ "./node_modules/next-routes/dist/index.js"); // Name   Page      Pattern
+var Router = __webpack_require__(/*! nextjs-dynamic-routes */ "./node_modules/nextjs-dynamic-routes/dist/index.js");
 
+var router = new Router(); // THESE LINES MAY be needed for ONLY THE LINK TAG USAGE. I BELIEVE They're not needed to capture query params. Because I have been able to access query params WITHOUT this line!
 
-module.exports = routes() // ----   ----      -----
-// .add('about')                                       // about  about     /about
-// .add('blog', '/blog/:slug')                         // blog   blog      /blog/:slug
-.add('card', '/card/:slug'); // card   card      /blog/:slug
-// .add('user', '/user/:id', 'profile')                // user   profile   /user/:id
-// .add('/:noname/:lang(en|es)/:wow+', 'complex')      // (none) complex   /:noname/:lang(en|es)/:wow+
-// .add({name: 'beta', pattern: '/v3', page: 'v3'})    // beta   v3        /v3
+router.add({
+  name: 'demo',
+  pattern: '/demo/:id/:card'
+});
+router.add({
+  name: 'film',
+  pattern: '/films/:id'
+}); // if the name of your route is different from your component file name:
+
+router.add({
+  // 👇 'name' ONLY used in Link tag!
+  name: 'characterAndFilm',
+  pattern: '/character-and-film/:characterId/',
+  page: 'character-and-film'
+});
+module.exports = router;
 
 /***/ }),
 
-/***/ 3:
+/***/ 5:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -14081,5 +14632,5 @@ module.exports = dll_831a3634f66cb1dada0c;
 
 /***/ })
 
-},[[3,"static/runtime/webpack.js","styles"]]]));;
+},[[5,"static/runtime/webpack.js","styles"]]]));;
 //# sourceMappingURL=index.js.map

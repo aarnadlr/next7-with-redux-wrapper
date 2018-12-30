@@ -1,4 +1,15 @@
+// @import 'css/palx/palx-master';
+@import 'css/tachyons';
+@import 'css/_tachyons-extend';
+
+
+
 $col: #c4fff5;
+$col2: purple;
 body {
   background-color: $col;
 }
+
+// .red{
+//   color:red;
+// }

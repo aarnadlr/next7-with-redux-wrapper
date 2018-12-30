@@ -14,15 +14,15 @@ class Index extends React.Component {
     name:'Asher'
   }
   render () {
-    // console.log(props)
+    console.log(this.props)
     return (
       <>
       {/* // <Page title='Index Page' linkTo='/other' /> */}
       <Counter/>
       <NameTag/>
-      <Link route='card' params={{slug: 'hello-world'}}>
+      {/* <Link route='card' params={{slug: 'hello-world'}}>
         <button >Click to create an /Asher route</button>
-      </Link>
+      </Link> */}
     </>
     )
   }
