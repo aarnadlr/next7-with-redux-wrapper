@@ -8,8 +8,8 @@ export default () => (
     The B PAGE. bbb
     </h3>
 
-    <Link route='a' params={{slug: ''}}>
+    {/* <Link route='a' params={{slug: ''}}>
       <button>Click</button>
-    </Link>
+    </Link> */}
   </div>
 )
