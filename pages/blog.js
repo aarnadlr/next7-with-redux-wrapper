@@ -1,5 +1,5 @@
 import React from 'react'
-// import '../styles/style.scss';
+import '../styles/style.scss';
 
 export default class extends React.Component {
   static getInitialProps ({ query }) {
@@ -15,11 +15,7 @@ export default class extends React.Component {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
-      <style jsx>{`
-*{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
-}
-`}</style>
+      
     </div>
   }
 }

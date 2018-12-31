@@ -1,8 +1,8 @@
 import React from 'react'
-// import '../styles/style.scss'
+import '../styles/style.scss'
 
-import Counter from '../components/Counter';
-import NameTag from '../components/NameTag';
+import Counter from '../Components/Counter';
+import NameTag from '../Components/NameTag';
 // import { addCount } from '../redux/actions';
 
 import Link from 'next/link'
@@ -26,9 +26,9 @@ class Index extends React.Component {
 
       <ul>
         {/* The 'as' props is 👇 COSMETIC "URL/ROUTE MASKING" if you wnt to hide the query params*/}
-        <li><Link href='/blog' as='/blog/butter'><a>My first blog post</a></Link></li>
-        <li><Link href='/blog?id=second&user=charley' as='/blog/second'><a>My second blog post</a></Link></li>
-        <li><Link href='/blog?id=last&user=molly' as='/blog/last'><a>My last blog post</a></Link></li>
+        <li><Link href='/blog' ><a>My first blog post</a></Link></li>
+        <li><Link href='/blog?id=second&user=charley' ><a>My second blog post</a></Link></li>
+        <li><Link href='/blog?id=last&user=molly' ><a>My last blog post</a></Link></li>
       </ul>
 
 

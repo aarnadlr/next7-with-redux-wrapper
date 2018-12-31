@@ -1,5 +1,5 @@
 // import moduleName from 'module'
-// import '../styles/style.scss'
+import '../styles/style.scss'
 // import {Link} from '../routes';
 
 class Demo extends React.Component{
