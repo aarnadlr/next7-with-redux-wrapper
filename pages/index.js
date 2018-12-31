@@ -25,9 +25,10 @@ class Index extends React.Component {
       </Link> */}
 
       <ul>
-        <li><Link href='/blog?id=first' as='/blog/first'><a>My first blog post</a></Link></li>
-        <li><Link href='/blog?id=second' as='/blog/second'><a>My second blog post</a></Link></li>
-        <li><Link href='/blog?id=last' as='/blog/last'><a>My last blog post</a></Link></li>
+        {/* The 'as' props is 👇 COSMETIC "URL/ROUTE MASKING" if you wnt to hide the query params*/}
+        <li><Link href='/blog' as='/blog/butter'><a>My first blog post</a></Link></li>
+        <li><Link href='/blog?id=second&user=charley' as='/blog/second'><a>My second blog post</a></Link></li>
+        <li><Link href='/blog?id=last&user=molly' as='/blog/last'><a>My last blog post</a></Link></li>
       </ul>
 
 

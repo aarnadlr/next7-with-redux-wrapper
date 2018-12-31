@@ -1,3 +1,5 @@
+// 👇 THIS CONFIG: "Parameterizer Routing": https://github.com/zeit/next.js/blob/canary/examples/parameterized-routing/server.js
+
 const { createServer } = require('http')
 const { parse } = require('url')
 const next = require('next')
@@ -8,10 +10,12 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const route = pathMatch()
-const match = route('/blog/:id')
+const match = route('/blog/:id/:user')
 
 app.prepare()
   .then(() => {
+
+
     createServer((req, res) => {
       const { pathname, query } = parse(req.url, true)
       const params = match(pathname)
@@ -24,8 +28,13 @@ app.prepare()
       // i.e. /blog/foo?show-comments=true
       app.render(req, res, '/blog', Object.assign(params, query))
     })
+    
+
+
       .listen(port, (err) => {
         if (err) throw err
         console.log(`> Ready on http://localhost:${port}`)
       })
+
+
   })

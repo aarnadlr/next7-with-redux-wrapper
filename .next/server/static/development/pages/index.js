@@ -384,13 +384,13 @@ function (_React$Component) {
     value: function render() {
       // console.log(this.props)
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Counter__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NameTag__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        href: "/blog?id=first",
-        as: "/blog/first"
+        href: "/blog",
+        as: "/blog/butter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My first blog post"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        href: "/blog?id=second",
+        href: "/blog?id=second&user=charley",
         as: "/blog/second"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My second blog post"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        href: "/blog?id=last",
+        href: "/blog?id=last&user=molly",
         as: "/blog/last"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My last blog post")))));
     }
