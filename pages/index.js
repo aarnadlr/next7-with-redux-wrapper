@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/style.scss'
+// import '../styles/style.scss'
 
 import Counter from '../components/Counter';
 import NameTag from '../components/NameTag';

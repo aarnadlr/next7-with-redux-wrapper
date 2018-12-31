@@ -2,5 +2,7 @@
   "version": 2,
   "name": "next7-with-redux-wrapper",
   "alias": "",
-  "builds": [{ "src": "package.json", "use": "@now/static-build" }]
+  "builds": [
+    { "src": "next.config.js", "use": "@now/next" }
+  ]
 }

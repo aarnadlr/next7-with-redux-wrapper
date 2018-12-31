@@ -1,5 +1,5 @@
 // import moduleName from 'module'
-import {Link} from '../routes';
+// import {Link} from '../routes';
 
 export default () => (
 

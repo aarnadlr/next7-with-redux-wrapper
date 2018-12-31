@@ -1,40 +1,32 @@
-// 👇 THIS CONFIG: "Parameterizer Routing": https://github.com/zeit/next.js/blob/canary/examples/parameterized-routing/server.js
-
-const { createServer } = require('http')
-const { parse } = require('url')
+const express = require('express')
 const next = require('next')
-const pathMatch = require('path-match')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
-const route = pathMatch()
-const match = route('/blog/:id/:user')
 
-app.prepare()
-  .then(() => {
+app.prepare().then(() => {
+  const server = express()
 
-
-    createServer((req, res) => {
-      const { pathname, query } = parse(req.url, true)
-      const params = match(pathname)
-      if (params === false) {
-        handle(req, res)
-        return
-      }
-      // assigning `query` into the params means that we still
-      // get the query string passed to our application
-      // i.e. /blog/foo?show-comments=true
-      app.render(req, res, '/blog', Object.assign(params, query))
-    })
-    
-
-
-      .listen(port, (err) => {
-        if (err) throw err
-        console.log(`> Ready on http://localhost:${port}`)
-      })
-
-
+  server.get('/a', (req, res) => {
+    return app.render(req, res, '/b', req.query)
   })
+
+  server.get('/b', (req, res) => {
+    return app.render(req, res, '/a', req.query)
+  })
+
+  server.get('/posts/:id', (req, res) => {
+    return app.render(req, res, '/posts', { id: req.params.id })
+  })
+
+  server.get('*', (req, res) => {
+    return handle(req, res)
+  })
+
+  server.listen(port, err => {
+    if (err) throw err
+    console.log(`> Ready on http://localhost:${port}`)
+  })
+})

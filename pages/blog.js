@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/style.scss';
+// import '../styles/style.scss';
 
 export default class extends React.Component {
   static getInitialProps ({ query }) {
