@@ -1,8 +1,8 @@
 import React from 'react'
 import '../styles/style.scss'
 
-import Counter from '../components/Counter';
-import NameTag from '../components/NameTag';
+import Counter from '../Components/Counter';
+import NameTag from '../Components/NameTag';
 // import { addCount } from '../redux/actions';
 
 import Link from 'next/link'
@@ -11,7 +11,8 @@ import Link from 'next/link'
 
 class Index extends React.Component {
   state={
-    name:'Asher'
+    name:'Asher',
+    age: 7
   }
   render () {
     // console.log(this.props)
@@ -30,6 +31,17 @@ class Index extends React.Component {
         <li><Link href='/blog?id=second&user=charley' as='/blog/second'><a>My second blog post</a></Link></li>
         <li><Link href='/blog?id=last&user=molly' as='/blog/last'><a>My last blog post</a></Link></li>
       </ul>
+
+
+      {/* <Link prefetch href={`/about?user=${this.state.name}&age=${this.state.age}`}> */}
+      <Link prefetch href={`/about`}>
+      {/* <Link prefetch href={`/about/${this.state.name}`}> */}
+        <a><h3>Link with Parameters</h3></a>
+      </Link>
+
+      <Link prefetch href={`/contact`}>
+        <a><h3>Contact</h3></a>
+      </Link>
 
 
     </>

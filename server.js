@@ -10,7 +10,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const route = pathMatch()
-const match = route('/blog/:id/:user')
+const match = route('/about/:color/:holiday')
 
 app.prepare()
   .then(() => {
@@ -26,7 +26,7 @@ app.prepare()
       // assigning `query` into the params means that we still
       // get the query string passed to our application
       // i.e. /blog/foo?show-comments=true
-      app.render(req, res, '/blog', Object.assign(params, query))
+      app.render(req, res, '/about', Object.assign(params, query))
     })
     
 
