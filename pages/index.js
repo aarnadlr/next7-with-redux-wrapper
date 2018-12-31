@@ -8,8 +8,12 @@ import Link from 'next/link';
 
 
 class Index extends React.Component {
-
+  state = {
+    person: 'Aaron Adler',
+    age:  41
+  }
   render () {
+    // const username = "AaronAdler"
     // console.log(props)
     return (
       <>
@@ -18,6 +22,15 @@ class Index extends React.Component {
       <NameTag/>
       <Link prefetch as={'/masked'} href={'/about'}>
         <a><h3>Link to About page</h3></a>
+      </Link>
+
+      {/* <Link as={props.as} href={`/post?title=${props.title}`} >
+              <a>{props.title}</a>
+          </Link> */}
+
+
+      <Link prefetch href={`/about?user=${this.state.person}&age=${this.state.age}`}>
+        <a><h3>Link with Parameters</h3></a>
       </Link>
     </>
     )
