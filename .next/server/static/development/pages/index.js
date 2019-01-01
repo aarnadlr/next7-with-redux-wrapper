@@ -291,6 +291,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_NameTag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/NameTag */ "./Components/NameTag.js");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/link */ "next/link");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! yup */ "yup");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(yup__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! formik */ "formik");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(formik__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! os */ "os");
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(os__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -317,6 +323,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  // import { addCount } from '../redux/actions';
 
  // import {Link} from '../routes';
+
+
+
+ // This INdex Component is receiving a set of PROPS from withFormik HOC!
 
 var Index =
 /*#__PURE__*/
@@ -346,21 +356,58 @@ function (_React$Component) {
   _createClass(Index, [{
     key: "render",
     value: function render() {
-      // console.log(this.props)
+      // The `values` object on props contains the current values for all inputs!
+      //   We use the values in ` values` object to pass the info into the actual input elements in the Component
+      var _this$props = this.props,
+          values = _this$props.values,
+          handleChange = _this$props.handleChange;
+      console.log('INDEX PROPS: ', this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Components_Counter__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Components_NameTag__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        href: "/blog"
+        href: "/blog?id=first&user=asher"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My first blog post"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
         href: "/blog?id=second&user=charley"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My second blog post"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
         href: "/blog?id=last&user=molly"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My last blog post")))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My last blog post")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        action: ""
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "email",
+        name: "email",
+        placeholder: 'Email address',
+        value: values.email,
+        onChange: handleChange
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "password",
+        name: "password",
+        placeholder: "password",
+        value: values.password,
+        onChange: handleChange
+      })));
     }
   }]);
 
   return Index;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // withFormik is an HOC, which FIRST takes in my custom Options object, where we define our specifc values;
+// THEN after that evaluates, the resulting function takes in my Index Component. This is just liek how react-redux's `connect` HOC function works.
+// This whole compound assemblage we save as FormikApp, which is what we export default from this module (and import into the root application)
 
-/* harmony default export */ __webpack_exports__["default"] = (Index);
+
+var FormikApp = Object(formik__WEBPACK_IMPORTED_MODULE_6__["withFormik"])({
+  // ES6 Method Definition syntax:
+  // The props passed in 👇 HERE are the props placed onto the FormikApp Component from it's parent (_app.js)!
+  mapPropsToValues: function mapPropsToValues(_ref) {
+    var email = _ref.email,
+        password = _ref.password;
+    return {
+      // the values defined in this object will be stored in the `props.values` object,
+      // to pass to the INPUT elements on the page:
+      // OFTEN-USED DOUBLE PIPE TRICK: IF the first arg is false (does not exist), the second arg will be used
+      email: email || '',
+      password: password || ''
+    };
+  }
+})(Index);
+/* harmony default export */ __webpack_exports__["default"] = (FormikApp);
 
 /***/ }),
 
@@ -432,6 +479,17 @@ module.exports = __webpack_require__(/*! ./pages/index.js */"./pages/index.js");
 
 /***/ }),
 
+/***/ "formik":
+/*!*************************!*\
+  !*** external "formik" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("formik");
+
+/***/ }),
+
 /***/ "next/link":
 /*!****************************!*\
   !*** external "next/link" ***!
@@ -440,6 +498,17 @@ module.exports = __webpack_require__(/*! ./pages/index.js */"./pages/index.js");
 /***/ (function(module, exports) {
 
 module.exports = require("next/link");
+
+/***/ }),
+
+/***/ "os":
+/*!*********************!*\
+  !*** external "os" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("os");
 
 /***/ }),
 
@@ -484,6 +553,17 @@ module.exports = require("redux");
 /***/ (function(module, exports) {
 
 module.exports = require("styled-jsx/style");
+
+/***/ }),
+
+/***/ "yup":
+/*!**********************!*\
+  !*** external "yup" ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("yup");
 
 /***/ })
 
