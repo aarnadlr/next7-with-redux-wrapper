@@ -358,9 +358,7 @@ function (_React$Component) {
     value: function render() {
       // The `values` object on props contains the current values for all inputs!
       //   We use the values in ` values` object to pass the info into the actual input elements in the Component
-      var _this$props = this.props,
-          values = _this$props.values,
-          handleChange = _this$props.handleChange;
+      // const {values, handleChange} = this.props;
       console.log('INDEX PROPS: ', this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Components_Counter__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Components_NameTag__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
         href: "/blog?id=first&user=asher"
@@ -368,21 +366,15 @@ function (_React$Component) {
         href: "/blog?id=second&user=charley"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My second blog post"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
         href: "/blog?id=last&user=molly"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My last blog post")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        action: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "My last blog post")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Form"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Field"], {
         type: "email",
         name: "email",
-        placeholder: 'Email address',
-        value: values.email,
-        onChange: handleChange
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        placeholder: "Email address"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Field"], {
         type: "password",
         name: "password",
-        placeholder: "password",
-        value: values.password,
-        onChange: handleChange
-      })));
+        placeholder: "password"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Submit")));
     }
   }]);
 
@@ -405,6 +397,9 @@ var FormikApp = Object(formik__WEBPACK_IMPORTED_MODULE_6__["withFormik"])({
       email: email || '',
       password: password || ''
     };
+  },
+  handleSubmit: function handleSubmit(values) {
+    console.log('VALUES: ', values);
   }
 })(Index);
 /* harmony default export */ __webpack_exports__["default"] = (FormikApp);

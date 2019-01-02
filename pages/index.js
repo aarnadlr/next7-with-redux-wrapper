@@ -6,7 +6,7 @@ import NameTag from '../Components/NameTag';
 import Link from 'next/link'
 // import {Link} from '../routes';
 import Yup from 'yup';
-import { withFormik } from 'formik'
+import { withFormik, Form, Field } from 'formik'
 import { networkInterfaces } from 'os';
 
 // This INdex Component is receiving a set of PROPS from withFormik HOC!
@@ -19,7 +19,7 @@ class Index extends React.Component {
   render () {
     // The `values` object on props contains the current values for all inputs!
     //   We use the values in ` values` object to pass the info into the actual input elements in the Component
-    const {values, handleChange} = this.props;
+    // const {values, handleChange} = this.props;
 
 
     console.log('INDEX PROPS: ',this.props)
@@ -41,15 +41,14 @@ class Index extends React.Component {
       </ul>
 
       {/* ✨ FORM ELEMENTS: */}
-      <form action="">
-        <input type="email" name='email' placeholder={'Email address'}
-        value={values.email} onChange={handleChange}
-        />
+      {/* // handleSubmit is provided by withFormik and defined below in the withFormik Options object */}
+      {/* // handleSubmit RECEIVES the user-inpoutted data (name and password, etc) as a `values` parameter. We take the values and SEND TO FIRESTORE from inside handleSubmit! */}
+      <Form>
+        <Field type="email" name='email' placeholder='Email address'/>
         <br/>
-        <input type="password" name='password' placeholder='password'
-        value={values.password} onChange={handleChange}
-        />
-      </form>
+        <Field type="password" name='password' placeholder='password'/>
+        <button>Submit</button>
+      </Form>
 
     </>
     )
@@ -70,6 +69,9 @@ const FormikApp = withFormik({
       email: email || '',
       password: password || ''
     }
+  },
+  handleSubmit(values){
+    console.log('VALUES: ',values)
   }
 })(Index);
 
